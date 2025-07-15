@@ -90,3 +90,22 @@ def weighted_avg(df, values, weights):
     total_weight = w.sum()
 
     return weighted_sum / total_weight if total_weight != 0 else 0  # Avoid division by zero
+
+
+def read_named_range_to_df(file_path, named_range_name):
+    wb = load_workbook(file_path, data_only=True)
+    named_range = wb.defined_names[named_range_name]
+
+    # Get the first (and typically only) destination
+    sheet_name, ref = next(named_range.destinations)
+    ws = wb[sheet_name]
+    cells = ws[ref]
+
+    rows = list(cells)
+    if not rows:
+        return pd.DataFrame()
+
+    headers = [cell.value for cell in rows[0]]
+    data_rows = ([cell.value for cell in row] for row in rows[1:])
+
+    return pd.DataFrame.from_records(data_rows, columns=headers)

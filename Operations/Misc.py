@@ -1,4 +1,5 @@
 import logging
+import pandas as pd
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.styles import PatternFill
 from openpyxl import load_workbook

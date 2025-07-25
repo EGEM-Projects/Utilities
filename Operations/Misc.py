@@ -1,6 +1,7 @@
 import logging
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.styles import PatternFill
+from openpyxl import load_workbook
 
 
 class ColoredFormatter(logging.Formatter):

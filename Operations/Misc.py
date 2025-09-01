@@ -111,3 +111,12 @@ def read_named_range_to_df(file_path, named_range_name):
     data_rows = ([cell.value for cell in row] for row in rows[1:])
 
     return pd.DataFrame.from_records(data_rows, columns=headers)
+
+def _get_named_value(self, name):
+    dn = self._m_wbStressTestInterface.defined_names[name]
+    for sheetname, coord in dn.destinations:   # resolves to (sheet, "A1") etc.
+        ws = self._m_wbStressTestInterface[sheetname]
+        return ws[coord].value
+    return None
+
+
